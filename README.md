@@ -10,4 +10,6 @@ Prowadzący: Jacek Jarnicki
 - [x] Desynchronizacja i Synchronizacja DVB
 - [ ] Desynchronizacja i Synchronizacja v34
 - Zajęcia 4:
-- [ ] Badanie dobroci układu
+- [x] Badanie dobroci układu
+- Zajecia 5:
+- [ ] Pierwowzór Dokumentacji
