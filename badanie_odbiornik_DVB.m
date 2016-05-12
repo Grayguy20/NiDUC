@@ -1,4 +1,4 @@
-s = round(rand(1,999));
+s = round(rand(1,1000));
 k = round(rand(1,16));
 w = [8,8,8,8,8];
 n =100;
@@ -10,7 +10,9 @@ n =100;
 
 N = nadajnik_DVB(s,k,w,n);
 N1 = odbiornik_DVB(N,k,w);
-s=[s,zeros(1,n-mod(length(s),n))];
+if mod(length(s),n) !=0
+  s=[s,zeros(1,n-mod(length(s),n))];
+endif
 M = s - N1;
 
 

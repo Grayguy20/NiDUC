@@ -1,4 +1,4 @@
-s = round(rand(1,999));
+s = round(rand(1,1000));
 k = round(rand(1,16));
 w = [8,8,8,8,8,8,8,8,8];
 
@@ -9,7 +9,9 @@ temp_s = s;
 N = nadajnik_DVB(temp_s,k,w,i);
 N1 = odbiornik_DVB(N,k,w);
 
-temp_s=[temp_s,zeros(1,n-mod(length(temp_s),n))];
+if mod(length(s),i) !=0
+  temp_s=[temp_s,zeros(1,i-mod(length(s),i))];
+endif
 
 m = temp_s - N1;
 zle = (sum(abs(m))+(length(N)-length(temp_s)));
@@ -19,7 +21,7 @@ i++;
 DANE = [DANE,temp_dane];
 endwhile
 
-DANE
+DANE;
 
 figure(1)
 plot(DANE)
