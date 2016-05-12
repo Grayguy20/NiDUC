@@ -1,53 +1,36 @@
-## Copyright (C) 2016 Szymon Wojciechowski
-## 
-## This program is free software; you can redistribute it and/or modify it
-## under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 3 of the License, or
-## (at your option) any later version.
-## 
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-## 
-## You should have received a copy of the GNU General Public License
-## along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-## -*- texinfo -*- 
-## @deftypefn {Function File} {@var{retval} =} nadajnik_DVB (@var{input1}, @var{input2})
-##
-## @seealso{}
-## @end deftypefn
-
-## Author: Szymon Wojciechowski <szymon@szymon-linux>
-## Created: 2016-05-05
-
-function [out] = nadajnik_v34(signal_in, KEY, WORD, N)
+function [out] = nadajnik_DVB(signal_in, KEY, WORD, N)
 
   out = [];
-  v34out = [];
-  i = 1;
-
   
-  while ( (i * N) <= length(signal_in))
-    
-    sp = (i-1) * N + 1;
-    ep = N*i;
-    to_v34 = signal_in(sp:ep)
+  i = 0;
+    if mod(length(signal_in),N) !=0
+      signal_in=[signal_in,zeros(1,N-mod(length(signal_in),N))];
+    endif
+    #length(signal_in);
+  while ( N * (i + 1) <= length(signal_in))
      
-    for a = to_v34;
-      temp = xor (a,  xor (KEY(end), KEY(5)));
-      KEY =  shift(KEY,1);
-      v34out(end+1) = temp;
-      KEY(1) = temp;
-    endfor
+    sp = N * i + 1;
+    ep = N * (i + 1);
+    
+   
+    temp = v34(KEY,signal_in(sp:ep));
+    j = 1;
+   while  j+5 <=length(temp)
+    
+     comp = temp(j:j+5);
+     
+     if isequal(comp,[0 0 0 0 0 0])
+     temp = [temp(1:j),shift(temp(j+1:end),1)];
+      
+     endif
+     j++;
+    endwhile
 
-    out = [out, v34out(sp:ep), WORD];
+    out = [out,temp,WORD];
     i++;
+  
   endwhile
   
-  #out = [out, signal_in((i-1) * N + 1 : end)];
-  out(end+1:N*i) = 0; 
-
+ 
 
 endfunction
