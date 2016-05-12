@@ -25,6 +25,6 @@ function [out] = odbiornik_DVB(signal_in, KEY, WORD)
     endif
     
   endwhile
-  out = [out, DVB(KEY,[temp, signal_in(i+1:end)])];
+ 
 
 endfunction

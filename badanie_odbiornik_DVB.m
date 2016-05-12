@@ -1,15 +1,23 @@
-s = round(rand(1,1000));
+s = round(rand(1,999));
 k = round(rand(1,16));
 w = [8,8,8,8,8];
-
+n =100;
 
 #isequal(s(7:11),[0 0 0 0 0])
 
 
 
-N = nadajnik_DVB(s,k,w,100);
+
+N = nadajnik_DVB(s,k,w,n);
 N1 = odbiornik_DVB(N,k,w);
+s=[s,zeros(1,n-mod(length(s),n))];
 M = s - N1;
+
+
+
+
+
+
 #S1 = DVB(k,s)
 #S2 = [S1(1:6),shift(S1(7:end),1)]
 #S3 = DVB(k,S2)
